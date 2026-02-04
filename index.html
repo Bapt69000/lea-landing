@@ -1,170 +1,87 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <title>Léa — Coach de Lumière</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f3ede3" />
-  <style>
-    :root{
-      --ink:#1f1a14;
-      --gold:#b08b2e;
-      --cream:rgba(255,255,255,.78);
-      --cream2:rgba(255,255,255,.62);
-      --shadow:0 18px 50px rgba(0,0,0,.18);
-      --radius:22px;
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-serif, "Georgia", "Times New Roman", serif;
-      color:var(--ink);
-      display:grid;
-      place-items:center;
-      padding:28px 18px;
-      background:#f3ede3;
-      position:relative;
-      overflow-x:hidden;
-    }
-
-    /* Background image + soft veil */
-    body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(to bottom, rgba(255,255,255,.65), rgba(255,255,255,.75)),
-    url("bg.png") center / cover no-repeat;
-  filter: blur(6px) saturate(.85) contrast(.8);
-  transform: scale(1.05);
-  opacity: .55;
-  z-index:-2;
+<style>
+/* RESET */
+* {
+  box-sizing: border-box;
 }
 
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      background: radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.10), rgba(0,0,0,.18));
-      z-index:-1;
-    }
+/* PAGE */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    900px 600px at 50% 35%,
+    #fff8ec,
+    #f3e6cf 60%,
+    #ecddbf 100%
+  );
+  color: #2b2b2b;
+}
 
-    .card{
-      width:min(560px, 92vw);
-      background: linear-gradient(180deg, var(--cream), var(--cream2));
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:34px 26px 22px;
-      text-align:center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
+/* CARTE CENTRALE */
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 22px;
+  padding: 48px 40px;
+  max-width: 520px;
+  width: calc(100% - 32px);
+  text-align: center;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.08);
+}
 
-    .mark{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:54px;
-      height:54px;
-      border-radius:16px;
-      background: rgba(255,255,255,.55);
-      border:1px solid rgba(255,255,255,.55);
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
-      margin: 0 auto 14px;
-      font-size:26px;
-    }
+/* TITRE */
+h1 {
+  margin: 0 0 6px;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
 
-    h1{
-      margin:0 0 6px;
-      font-size:42px;
-      letter-spacing:.2px;
-      line-height:1.05;
-      font-weight:700;
-      font-family: ui-serif, "Georgia", serif;
-    }
+/* SOUS-TITRE */
+.subtitle {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a8555;
+  margin-bottom: 22px;
+}
 
-    .subtitle{
-      margin:0 0 16px;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      font-size:15px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: rgba(31,26,20,.72);
-    }
+/* TEXTE */
+p {
+  margin: 0 0 32px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #3a3a3a;
+}
 
-    .lead{
-      margin:0 auto 22px;
-      max-width: 46ch;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      font-size:18px;
-      line-height:1.55;
-      color: rgba(31,26,20,.86);
-    }
+/* BOUTON */
+a {
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: #1f1f1f;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:14px 18px;
-      border-radius:999px;
-      text-decoration:none;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      font-weight:600;
-      font-size:16px;
-      color: rgba(31,26,20,.92);
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(176,139,46,.35);
-      box-shadow: 0 14px 32px rgba(0,0,0,.12);
-      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(0,0,0,.16);
-      background: rgba(255,255,255,.88);
-    }
+a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
 
-    .btn .dot{
-      width:9px;height:9px;border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(176,139,46,.14);
-    }
-
-    footer{
-      margin-top:18px;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      font-size:13px;
-      color: rgba(31,26,20,.55);
-    }
-
-    @media (max-width:420px){
-      .card{ padding:28px 18px 18px; border-radius:18px; }
-      h1{ font-size:36px; }
-      .lead{ font-size:17px; }
-    }
-  </style>
-</head>
-<body>
-  <main class="card" role="main">
-    <div class="mark" aria-hidden="true">🌸</div>
-    <h1>Léa</h1>
-    <div class="subtitle">Coach de Lumière</div>
-
-    <p class="lead">
-      Un espace doux pour faire le point,<br>
-      t’écouter vraiment<br>
-      et retrouver de la clarté 🌿
-    </p>
-
-    <a class="btn" href="mailto:contact@coachdelumiere.fr">
-      <span class="dot" aria-hidden="true"></span>
-      ✨ Me contacter
-    </a>
-
-    <footer>© Léa — Coach de Lumière</footer>
-  </main>
-</body>
-</html>
+/* FOOTER */
+footer {
+  margin-top: 32px;
+  font-size: 13px;
+  color: #777;
+}
+</style>
